@@ -1,0 +1,21 @@
+body {
+  padding-top: 126px;
+  background-color: #4d4d4d;
+  font-family:'Roboto Condensed', sans-serif;
+  color: white;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin: 10px 0px;
+  background-color: transparent;
+  font-family:'Roboto Condensed', sans-serif;
+  color: white;
+  font-size: 69px;
+  line-height: 54px;
+  font-style: normal;
+  font-weight: 700;
+  text-shadow: none;
+}
