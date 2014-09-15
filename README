@@ -1,0 +1,8 @@
+To set up:
+
+1. Start app engine
+2. Visit the landing page (it should give an error)
+3. Go to the database console and find the Configuration entity, there should only be one with id 1.
+4. Edit the entity with the Facebook APP ID and secret.
+5. ...
+6. Profit!!!
