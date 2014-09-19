@@ -201,8 +201,13 @@ class Referral(BlogHandler):
         
         self.render('landing.html', fb_app_id = get_facebook_id(), refereeID = refereeID)      
 
+class WireFrame(BlogHandler):
+    def get(self):
+        self.render('wireframe.html')      
+
 application = webapp2.WSGIApplication([
      webapp2.Route('/', handler=Landing),
      webapp2.Route('/progress', handler=Progress),
      webapp2.Route('/referral/<refereeID>', handler=Referral),
+     webapp2.Route('/wireframe', handler=WireFrame),
      ], debug=True)
