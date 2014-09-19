@@ -69,7 +69,7 @@ def valid_email(email):
 ################################################################################
     
 def welcomeEmail(user_email, user_ID):
-    mail.send_mail(sender="Crybb <victoria@crybb.com>",
+    mail.send_mail(sender="Crybb <sam.pattuzzi@googlemail.com>",
               to="<"+user_email+">",
               subject="Thanks for Signing Up!",
               body="""
