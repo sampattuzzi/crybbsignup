@@ -9,9 +9,14 @@
   transform: translate(-50%, -50%);
 }
 
+@mixin full-grey() {
+  background-color: grey;
+  color: #FFFFFF;
+}
+
 
 //For debug only:
-div {
+.bordered {
   border-style: dashed;
   border-color: red;
   border-width: 1px;
@@ -29,12 +34,8 @@ p {
 //Header style
 //////////////////////////////////////////////////
 .header {
-  background-color: grey;
-  color: #FFFFFF;
-}
-
-.header-inner {
-  margin: 10px;
+  @include full-grey();
+  padding: 10px;
 }
 
 .message-container {
@@ -114,7 +115,7 @@ h2, h3 {
   text-align: center;
 }
 
-.round-img {
+.round-img.top {
   margin-bottom: 20px;
 }
 
@@ -148,6 +149,11 @@ img {
   }
 }
 
+.round-img.side {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .center-text.swap {
   @media #{$medium-up} {
     @include grid-column($columns:8, $pull:4, $float:none);
@@ -156,4 +162,24 @@ img {
 
 h3 {
   text-align: left;
+}
+
+
+//////////////////////////////////////////////////
+//Footer style
+//////////////////////////////////////////////////
+
+.footer {
+  @include full-grey();
+  height: 200px;
+  position: relative;
+}
+
+.copyright {
+  @include grid-row();
+  @include vertical-center();
+}
+
+p.copyright {
+  font-size: 14px;
 }

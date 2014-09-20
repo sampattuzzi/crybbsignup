@@ -50,17 +50,17 @@
 
     <div class="spaced-row">
       <div class="medium-4 columns">
-        <img class="round-img" src="/static/img/placeholder1.png"/>
+        <img class="round-img top" src="/static/img/placeholder1.png"/>
         <p> P 18px Medium #333333 
         Lorem ipsum dolor sit amet </p>
       </div>
       <div class="medium-4 columns">
-        <img class="round-img" src="/static/img/placeholder1.png"/>
+        <img class="round-img top" src="/static/img/placeholder1.png"/>
         <p> P 18px Medium #333333 
         Lorem ipsum dolor sit amet </p>
       </div>
       <div class="medium-4 columns">
-        <img class="round-img" src="/static/img/placeholder1.png"/>
+        <img class="round-img top" src="/static/img/placeholder1.png"/>
         <p> P 18px Medium #333333 
         Lorem ipsum dolor sit amet </p>
       </div>
@@ -84,26 +84,47 @@
 
     <div class="spaced-row">
       <div class="side-image">
-        <img class="round-img" src="/static/img/placeholder1.png"/>
+        <img class="round-img side" src="/static/img/placeholder1.png"/>
       </div>
       <div class="center-text">
-        <h3> P 18px Medium #333333 
-        Lorem ipsum dolor sit amet </h3>
+        <h3> H3 36px Regular #333333 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at ultricies nunc, vitae posuere elit. </h3>
       </div>
     </div>
 
     <div class="spaced-row">
       <div class="side-image swap">
-        <img class="round-img" src="/static/img/placeholder1.png"/>
+        <img class="round-img side" src="/static/img/placeholder1.png"/>
       </div>
       <div class="center-text swap">
-        <h3> P 18px Medium #333333 
-        Lorem ipsum dolor sit amet </h3>
+        <h3> H3 36px Regular #333333 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at ultricies nunc, vitae posuere elit. </h3>
       </div>
     </div>
+    
+    <div class="footer">
+      <p class="copyright">
+        Copyright 14px Reg #FFFFFF
+      </p>
+    </div>
 
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/foundation/js/foundation.min.js"></script>
-    <script src="js/app.js"></script>
+
+    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/static/bower_components/foundation/js/foundation.min.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script>
+      $(document).ready(function() {
+        var bordered = false;
+        $('body').keydown(function(event) {
+          if ( event.which === 13 ) {
+            event.preventDefault();
+            if ( bordered ) {
+              $('div, p, img, h1, h2, h3').removeClass('bordered');
+            } else {
+              $('div, p, img, h1, h2, h3').addClass('bordered');
+            }
+            bordered = !bordered;
+          }
+        });
+      });
+    </script>
   </body>
 </html>
