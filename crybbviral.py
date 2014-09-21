@@ -36,7 +36,7 @@ def render_str(template, **params):
     t = jinja_env.get_template(template)
     return t.render(params)
 
-class BlogHandler(webapp2.RequestHandler):
+class BaseHandler(webapp2.RequestHandler):
 
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
@@ -87,22 +87,18 @@ def welcomeEmail(user_email, user_ID):
     """
     )
         
-def createUser (profile, user_location, user_refereeID):
+def createUser (user, user_location, user_refereeID):
     
-    try:
-        email = profile["email"]
-    except KeyError:
-        email = None
     newUser = User(
-            id=str(profile["id"]),
-            name=profile["name"],
-            email=email,
-            profile_url=profile["link"],
+            id=str(user.id),
+            name=(user.first_name + " " + user.last_name), #todo: should be seperate fields
+            email=user.email,
+            profile_url=user.profile_url,
             location=user_location,
             refereeID=user_refereeID,
             clicks=0,
             signups=0,
-            access_token=profile["access_token"],
+            access_token=user.token.raw_token,
             )
     newUser.put()
     
@@ -110,8 +106,7 @@ def createUser (profile, user_location, user_refereeID):
         signupCount (user_refereeID)
     
     user_ID = newUser.key.id()
-    if email:
-        welcomeEmail(email, user_ID)
+    welcomeEmail(user.email, user_ID)
     
     return newUser
 
@@ -152,62 +147,54 @@ class Configuration(ndb.Model):
     fb_id = ndb.StringProperty()
     fb_secret = ndb.StringProperty()
     
-class Landing(BlogHandler):
+class Landing(BaseHandler):
     def get(self): 
 
-        self.render('landing.html', fb_app_id = get_facebook_id(), refereeID = 'NULL')     
+        self.render('landing.html', 
+                refereeID = 'NULL', 
+                redirect_url=facebook.get_login_url(get_facebook_id(), webapp2.uri_for('progress', _full=True)))     
 
-class Progress(BlogHandler):
+class Progress(BaseHandler):
     def get(self):
-        location = self.request.get('location', '')
-        refereeID = self.request.get('refereeID', '')
 
         message = None
-        currentUser = None
+        fb_user = None
 
-        cookie = facebook.get_user_from_cookie(
-            self.request.cookies, get_facebook_id(), get_facebook_secret())
+        try:
+            token = facebook.AuthenticationToken.get_authentication_token_from_code(
+                    app_id=get_facebook_id(), 
+                    app_secret=get_facebook_secret(), 
+                    return_url=self.request.url,
+                    )
+            fb_user = token.get_user()
 
-        graph = facebook.GraphAPI(cookie["access_token"])
-        graph.extend_access_token(get_facebook_id(), get_facebook_secret())
-        profile = graph.get_object("me")
-        profile["access_token"] = graph.access_token
-        print profile
+        except facebook.AuthenticationError:
+            message = "Oops, there appears to have been an authentication error. Please try again."
 
-        if cookie:
-            # Store a local instance of the user data so we don't need
-            # a round-trip to Facebook on every request
-            currentUser = User.get_by_id(cookie["uid"])
-            if not currentUser:
-                if location:
-                    currentUser = createUser(profile, location, refereeID)
-                else:
-                    message = "Invalid sign up. You didn't select a location."
-            else:
-                if currentUser.access_token != profile["access_token"]:
-                    currentUser.access_token = profile["access_token"]
-                if location:
-                    currentUser.location = location
-                currentUser.put()
-        else:
-            message = "You are not signed in to Facebook."
+        except facebook.PermissionError:
+            #todo: Prompt for permissions again
+            message = "Looks like you didn't give us all the permissions we require. We won't be able to subscribe you." 
+
+        user = None
+        if fb_user:
+            user = createUser(fb_user, "", "NULL") #Get these in another step of sign-up
         
-        self.render('progress.html', fb_app_id = get_facebook_id(), user = currentUser, message = message)       
+        self.render('progress.html', fb_app_id = get_facebook_id(), user = user, message = message)       
         
-class Referral(BlogHandler):
+class Referral(BaseHandler):
     def get(self,refereeID):
         
         clickCount(refereeID)
         
-        self.render('landing.html', fb_app_id = get_facebook_id(), refereeID = refereeID)      
+        self.render('landing.html', refereeID = refereeID)      
 
-class WireFrame(BlogHandler):
+class WireFrame(BaseHandler):
     def get(self):
         self.render('wireframe.html')      
 
 application = webapp2.WSGIApplication([
-     webapp2.Route('/', handler=Landing),
-     webapp2.Route('/progress', handler=Progress),
-     webapp2.Route('/referral/<refereeID>', handler=Referral),
+     webapp2.Route('/', handler=Landing, name="landing"),
+     webapp2.Route('/progress', handler=Progress, name="progress"),
+     webapp2.Route('/referral/<refereeID>', handler=Referral, name="referral"),
      webapp2.Route('/wireframe', handler=WireFrame),
      ], debug=True)

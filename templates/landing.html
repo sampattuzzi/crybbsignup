@@ -3,7 +3,8 @@
 {% block body %}    
 <h1> crybb | landing </h1>
     <br><br>
-<form method="get" action="/progress" id="emailSubmit"> 
+    <a href="{{ redirect_url }}"> I'm in </a>
+    <form method="get" action="{{ redirect_url }}" id="emailSubmit"> 
     sign up for beta <br>
             <select name="location">
                     <option value="london" selected >london</option>
@@ -13,9 +14,7 @@
                     <option value="stockholm">stockholm</option>
             </select>
 <input type="hidden" name="refereeID" value={{refereeID}}>
-    <fb:login-button class="logged-out" scope="public_profile,email" onlogin="checkLoginState();" >
-        I'm in
-    </fb:login-button>
+<input type="submit" value="I'm in"> 
     </form>
 <div id="status">
 </div>
