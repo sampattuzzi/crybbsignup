@@ -79,54 +79,58 @@ class BaseHandler(webapp2.RequestHandler):
 
         return user
 
+    def createUser (self, user, user_location, user_refereeID):
+        
+        newUser = User(
+                id=str(user.id),
+                name=(user.first_name + " " + user.last_name), #todo: should be seperate fields
+                email=user.email,
+                profile_url=user.profile_url,
+                location=user_location,
+                refereeID=user_refereeID,
+                clicks=0,
+                signups=0,
+                access_token=user.token.raw_token,
+                )
+        newUser.put()
+        
+        if user_refereeID != "NULL":
+            signupCount (user_refereeID)
+        
+        user_ID = newUser.key.id()
+        if user.email:
+            self.welcomeEmail(user.email, user_ID)
+        
+        return newUser
+
+    def welcomeEmail(self, user_email, user_ID):
+        body = """
+        Here at crybb, we like to reward sharing.
+        
+        Share the link below, and the more people who sign up through it, the earlier beta access you get!
+        """+application.router.build(self.request, 'referral', (), {'refereeID': str(user_ID),'_full': True})+"""
+        
+        We will update you when your beta access is ready, but in the meantime find us on social media:
+        http://www.facebook.com/wearecrybb
+        http://www.twitter.com/wearecrybb
+        
+        Victoria,
+        Founder, Crybb
+        """
+        print body
+
+        mail.send_mail(sender="Crybb <sam.pattuzzi@googlemail.com>",
+                  to="<"+user_email+">",
+                  subject="Thanks for Signing Up!",
+                  body=body)
+
+
 EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 def valid_email(email):
     return EMAIL_RE.match(email)
 ################################################################################
     
-def welcomeEmail(user_email, user_ID):
-    mail.send_mail(sender="Crybb <sam.pattuzzi@googlemail.com>",
-              to="<"+user_email+">",
-              subject="Thanks for Signing Up!",
-              body="""
-    Here at crybb, we like to reward sharing.
-    
-    Share the link below, and the more people who sign up through it, the earlier beta access you get!
-    http://crybbviral.appspot.com/referral/"""+str(user_ID)+"""
-    
-    We will update you when your beta access is ready, but in the meantime find us on social media:
-    http://www.facebook.com/wearecrybb
-    http://www.twitter.com/wearecrybb
-    
-    Victoria,
-    Founder, Crybb
-    """
-    )
         
-def createUser (user, user_location, user_refereeID):
-    
-    newUser = User(
-            id=str(user.id),
-            name=(user.first_name + " " + user.last_name), #todo: should be seperate fields
-            email=user.email,
-            profile_url=user.profile_url,
-            location=user_location,
-            refereeID=user_refereeID,
-            clicks=0,
-            signups=0,
-            access_token=user.token.raw_token,
-            )
-    newUser.put()
-    
-    if user_refereeID != "NULL":
-        signupCount (user_refereeID)
-    
-    user_ID = newUser.key.id()
-    if user.email:
-        welcomeEmail(user.email, user_ID)
-    
-    return newUser
-
 def emailExists (email):
     temp = User.query().filter(ndb.GenericProperty('email') == email).get()
     if temp:
@@ -215,7 +219,7 @@ class StageTwo(BaseHandler):
                 user.location = location
                 user.put()
             else:
-                user = createUser(fb_user, location, refereeID) #Get these in another step of sign-up
+                user = self.createUser(fb_user, location, refereeID) #Get these in another step of sign-up
             
             self.session['user'] = str(user.key.id())
 
@@ -232,6 +236,7 @@ class GetEmail(BaseHandler):
     def post(self):
         user = self.user
         user.email = self.request.get('email')
+        self.welcomeEmail(user.email, str(user.key.id()))
         user.put()
         self.redirect_to('progress')
 
