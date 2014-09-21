@@ -3,14 +3,15 @@
 {% block body %}
 <h1> crybb | progress </h1>
 <br>
-{% if not user %}
-Error during signing-up: {{message}}
-{% else %}
-you signed up as {{user.email}}!
+{% for flash in flashes %}
+<p> {{ flash }} </p>
+{% endfor %}
+{% if user %}
+Hello {{ user.name }}!
 <br>  
 share your unique link to move up the beta queue:
 <br>
-http://crybbsptest.appspot.com/referral/{{user.key.id()}}
+{{ referral_link }}
 <br><br>
 Link stats:<br>
 clicks: {{user.clicks}} <br>

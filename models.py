@@ -12,6 +12,7 @@ class User(ndb.Model):
     profile_url = ndb.StringProperty(required=True)
     access_token = ndb.StringProperty(required=True)
 
+@ndb.transactional
 def clickCount (uniqueID):
     referee=User.get_by_id(str(uniqueID))
     referee.clicks += 1

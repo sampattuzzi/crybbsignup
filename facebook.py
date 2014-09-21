@@ -74,11 +74,11 @@ class FacebookUser:
         response = urllib.urlopen("https://graph.facebook.com/me?" + args).read()
         data = json.loads(response)
 
+        self.first_name = data.get('first_name', "")
+        self.last_name = data.get('last_name', "")
+        self.email = data.get('email')
         try:
             self.id = data['id']
-            self.email = data['email']
-            self.first_name = data['first_name']
-            self.last_name = data['last_name']
             self.profile_url = data['link']
         except KeyError, e:
             raise PermissionError(e.args)

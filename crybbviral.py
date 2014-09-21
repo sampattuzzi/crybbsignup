@@ -45,6 +45,8 @@ class BaseHandler(webapp2.RequestHandler):
         return render_str(template, **params)
 
     def render(self, template, **kw):
+        kw['flashes'] = self.session.get_flashes()
+        print kw
         self.write(self.render_str(template, **kw))
 
     def initialize(self, *a, **kw):
@@ -108,7 +110,8 @@ def createUser (user, user_location, user_refereeID):
         signupCount (user_refereeID)
     
     user_ID = newUser.key.id()
-    welcomeEmail(user.email, user_ID)
+    if user.email:
+        welcomeEmail(user.email, user_ID)
     
     return newUser
 
@@ -120,23 +123,32 @@ def emailExists (email):
         return 0
     
 class Landing(BaseHandler):
-    def get(self): 
-
+    def prepare_page(self, refereeID):
         self.render('landing.html', 
-                refereeID = 'NULL', 
+                refereeID = refereeID, 
                 redirect_url=facebook.get_login_url(get_facebook_id(), webapp2.uri_for('progress', _full=True)))     
+
+    def get(self): 
+        self.prepare_page('NULL')
+
+class Referral(Landing):
+    def get(self,refereeID):
+        
+        clickCount(refereeID)
+        
+        self.prepare_page(refereeID)
+
 
 class Progress(BaseHandler):
     def get(self):
 
         user = None
-        message = None
 
         if 'user' in self.session:
             user = User.get_by_id(self.session["user"])
 
             if not user:
-                message = "You do not appear to be logged in."
+                self.session.add_flash("You do not appear to be logged in.")
 
         else:
             fb_user = None
@@ -150,28 +162,42 @@ class Progress(BaseHandler):
                 fb_user = token.get_user()
 
             except facebook.AuthenticationError:
-                message = "Oops, there appears to have been an authentication error. Please try again."
+                self.session.add_flash("Oops, there appears to have been an authentication error. Please try again.")
+                self.redirect_to('landing') #todo: save referal in cookie so that we have it at this stage.
+                return
 
             except facebook.PermissionError:
                 #todo: Prompt for permissions again
-                message = "Looks like you didn't give us all the permissions we require. We won't be able to subscribe you." 
+                self.session.add_flash("Looks like you didn't give us all the permissions we require. We won't be able to subscribe you.")
 
             if fb_user:
-                user = createUser(fb_user, "", "NULL") #Get these in another step of sign-up
+                existing_user = User.get_by_id(str(fb_user.id))
+                if existing_user:
+                    user = existing_user
+                else:
+                    user = createUser(fb_user, "", "NULL") #Get these in another step of sign-up
                 self.session['user'] = str(fb_user.id)
         
-        self.render('progress.html', fb_app_id = get_facebook_id(), user = user, message = message)       
-        
-class Referral(BaseHandler):
-    def get(self,refereeID):
-        
-        clickCount(refereeID)
-        
-        self.render('landing.html', refereeID = refereeID)      
+        self.render('progress.html', user=user, referral_link=application.router.build(self.request, 'referral', (), {'refereeID': user.key.id(),'_full': True}))
 
 class WireFrame(BaseHandler):
     def get(self):
         self.render('wireframe.html')      
+        
+#Login stages
+
+class StageOne(BaseHandler):
+    def get(self):
+        pass
+
+class StageTwo(BaseHandler):
+    def get(self):
+        pass
+
+class GetEmail(BaseHandler):
+    def get(self):
+        pass
+
 
 config = {}
 config['webapp2_extras.sessions'] = {
