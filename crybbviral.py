@@ -219,11 +219,21 @@ class StageTwo(BaseHandler):
             
             self.session['user'] = str(user.key.id())
 
+        if not self.user.email:
+            self.redirect_to('get_email')
+            return
+
         self.redirect_to('progress')
 
 class GetEmail(BaseHandler):
     def get(self):
-        pass
+        self.render('get_email.html', action_url = self.uri_for('get_email'))
+
+    def post(self):
+        user = self.user
+        user.email = self.request.get('email')
+        user.put()
+        self.redirect_to('progress')
 
 
 config = {}
@@ -236,6 +246,7 @@ application = webapp2.WSGIApplication([
      webapp2.Route('/progress', handler=Progress, name="progress"),
      webapp2.Route('/stageone', handler=StageOne, name="stageone"),
      webapp2.Route('/stagetwo', handler=StageTwo, name="stagetwo"),
+     webapp2.Route('/get_email', handler=GetEmail, name="get_email"),
      webapp2.Route('/referral/<refereeID>', handler=Referral, name="referral"),
      webapp2.Route('/wireframe', handler=WireFrame),
      ], 
