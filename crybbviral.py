@@ -5,12 +5,11 @@ import string
 import random
 import re
 
-from google.appengine.api import users
-from google.appengine.ext import ndb
 from google.appengine.api import mail
 
 import jinja2
 import webapp2
+from webapp2_extras import sessions
 
 #Third party libraries
 import sys
@@ -18,6 +17,7 @@ lib_dir = "libs"
 sys.path += [os.path.join(lib_dir, name) for name in os.listdir(lib_dir)
             if os.path.isdir(os.path.join(lib_dir, name))] #Add subdirectories of 'libs' to path
 import facebook
+from models import User, get_facebook_id, get_facebook_secret, clickCount, signupCount
 
 def set_trace():
     import pdb, sys
@@ -50,19 +50,21 @@ class BaseHandler(webapp2.RequestHandler):
     def initialize(self, *a, **kw):
         webapp2.RequestHandler.initialize(self, *a, **kw)
 
-def get_config():
-    config = Configuration.get_by_id(1)
-    if not config:
-        config = Configuration(id=1, fb_id="", fb_secret="")
-        config.put()
-    return config
+    def dispatch(self):
+        # Get a session store for this request.
+        self.session_store = sessions.get_store(request=self.request)
 
-def get_facebook_id():
-    return get_config().fb_id
+        try:
+            # Dispatch the request.
+            webapp2.RequestHandler.dispatch(self)
+        finally:
+            # Save all sessions.
+            self.session_store.save_sessions(self.response)
 
-def get_facebook_secret():
-    return get_config().fb_secret
-        
+    @webapp2.cached_property
+    def session(self):
+        return self.session_store.get_session()
+
 EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 def valid_email(email):
     return EMAIL_RE.match(email)
@@ -110,42 +112,12 @@ def createUser (user, user_location, user_refereeID):
     
     return newUser
 
-@ndb.transactional
-def clickCount (uniqueID):
-    referee=User.get_by_id(str(uniqueID))
-    referee.clicks += 1
-    referee.put()
-    return referee.email
-
-@ndb.transactional
-def signupCount (uniqueID):
-    referee=User.get_by_id(str(uniqueID))
-    referee.signups += 1
-    referee.put()
-    return referee.email
-    
 def emailExists (email):
     temp = User.query().filter(ndb.GenericProperty('email') == email).get()
     if temp:
         return temp.key.id()
     else:
         return 0
-    
-class User(ndb.Model):
-    email = ndb.StringProperty(required=False)
-    location = ndb.StringProperty()
-    refereeID = ndb.StringProperty()
-    clicks = ndb.IntegerProperty()
-    signups = ndb.IntegerProperty()
-    created = ndb.DateTimeProperty(auto_now_add=True)
-    updated = ndb.DateTimeProperty(auto_now=True)
-    name = ndb.StringProperty(required=True)
-    profile_url = ndb.StringProperty(required=True)
-    access_token = ndb.StringProperty(required=True)
-
-class Configuration(ndb.Model):
-    fb_id = ndb.StringProperty()
-    fb_secret = ndb.StringProperty()
     
 class Landing(BaseHandler):
     def get(self): 
@@ -157,27 +129,36 @@ class Landing(BaseHandler):
 class Progress(BaseHandler):
     def get(self):
 
-        message = None
-        fb_user = None
-
-        try:
-            token = facebook.AuthenticationToken.get_authentication_token_from_code(
-                    app_id=get_facebook_id(), 
-                    app_secret=get_facebook_secret(), 
-                    return_url=self.request.url,
-                    )
-            fb_user = token.get_user()
-
-        except facebook.AuthenticationError:
-            message = "Oops, there appears to have been an authentication error. Please try again."
-
-        except facebook.PermissionError:
-            #todo: Prompt for permissions again
-            message = "Looks like you didn't give us all the permissions we require. We won't be able to subscribe you." 
-
         user = None
-        if fb_user:
-            user = createUser(fb_user, "", "NULL") #Get these in another step of sign-up
+        message = None
+
+        if 'user' in self.session:
+            user = User.get_by_id(self.session["user"])
+
+            if not user:
+                message = "You do not appear to be logged in."
+
+        else:
+            fb_user = None
+
+            try:
+                token = facebook.AuthenticationToken.get_authentication_token_from_code(
+                        app_id=get_facebook_id(), 
+                        app_secret=get_facebook_secret(), 
+                        return_url=self.request.url,
+                        )
+                fb_user = token.get_user()
+
+            except facebook.AuthenticationError:
+                message = "Oops, there appears to have been an authentication error. Please try again."
+
+            except facebook.PermissionError:
+                #todo: Prompt for permissions again
+                message = "Looks like you didn't give us all the permissions we require. We won't be able to subscribe you." 
+
+            if fb_user:
+                user = createUser(fb_user, "", "NULL") #Get these in another step of sign-up
+                self.session['user'] = str(fb_user.id)
         
         self.render('progress.html', fb_app_id = get_facebook_id(), user = user, message = message)       
         
@@ -192,9 +173,17 @@ class WireFrame(BaseHandler):
     def get(self):
         self.render('wireframe.html')      
 
+config = {}
+config['webapp2_extras.sessions'] = {
+    'secret_key': str(get_facebook_secret()),
+}
+    
 application = webapp2.WSGIApplication([
      webapp2.Route('/', handler=Landing, name="landing"),
      webapp2.Route('/progress', handler=Progress, name="progress"),
      webapp2.Route('/referral/<refereeID>', handler=Referral, name="referral"),
      webapp2.Route('/wireframe', handler=WireFrame),
-     ], debug=True)
+     ], 
+     debug=True,
+     config=config
+     )
