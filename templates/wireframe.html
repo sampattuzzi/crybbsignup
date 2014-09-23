@@ -1,0 +1,130 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation</title>
+    <link rel="stylesheet" href="/static/stylesheets/app.css" />
+    <script src="/static/bower_components/modernizr/modernizr.js"></script>
+  </head>
+  <body>
+
+    <div class="header">
+      <div class="header-inner">
+        <div class="logo">
+          CRYBB </br>
+          LOGO
+        </div>
+        <div class="message-container">
+          <div class="message">
+            <h1 class="text">
+              H1 36px Regular #FFFFFF
+            </h1>
+            <div class="buttons">
+              <div class="button-container">
+                <div class="primary button">
+                  18px Bold
+                </div>
+              </div>
+              <div class="button-container">
+                <div class="secondary button">
+                  18px Reg
+                </div>
+              </div>
+            </div>
+            <p class="subtext">
+              P 18px Reg #FFFFFF
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spaced-row">
+      <div class="large-12 columns">
+        <h2>H2 36px Regular #333333 Lorem ipsum dolor sit amet, 
+        consectetur adipiscing elit. Nulla at ultricies nunc,
+      vitae posuere elit. Donec in.</h2>
+      </div>
+    </div>
+
+    <div class="spaced-row">
+      <div class="medium-4 columns">
+        <img class="round-img top" src="/static/img/placeholder1.png"/>
+        <p> P 18px Medium #333333 
+        Lorem ipsum dolor sit amet </p>
+      </div>
+      <div class="medium-4 columns">
+        <img class="round-img top" src="/static/img/placeholder1.png"/>
+        <p> P 18px Medium #333333 
+        Lorem ipsum dolor sit amet </p>
+      </div>
+      <div class="medium-4 columns">
+        <img class="round-img top" src="/static/img/placeholder1.png"/>
+        <p> P 18px Medium #333333 
+        Lorem ipsum dolor sit amet </p>
+      </div>
+    </div>
+
+    <div class="spaced-row">
+      <hr/>
+    </div>
+
+    <div class="spaced-row">
+      <div class="large-12 columns">
+        <h2>H2 36px Regular #333333 Lorem ipsum dolor sit amet, 
+        consectetur adipiscing elit. Nulla at ultricies nunc,
+      vitae posuere elit. Donec in.</h2>
+      </div>
+    </div>
+    
+    <div class="spaced-row">
+      <hr/>
+    </div>
+
+    <div class="spaced-row">
+      <div class="side-image">
+        <img class="round-img side" src="/static/img/placeholder1.png"/>
+      </div>
+      <div class="center-text">
+        <h3> H3 36px Regular #333333 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at ultricies nunc, vitae posuere elit. </h3>
+      </div>
+    </div>
+
+    <div class="spaced-row">
+      <div class="side-image swap">
+        <img class="round-img side" src="/static/img/placeholder1.png"/>
+      </div>
+      <div class="center-text swap">
+        <h3> H3 36px Regular #333333 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at ultricies nunc, vitae posuere elit. </h3>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p class="copyright">
+        Copyright 14px Reg #FFFFFF
+      </p>
+    </div>
+
+
+    <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/static/bower_components/foundation/js/foundation.min.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script>
+      $(document).ready(function() {
+        var bordered = false;
+        $('body').keydown(function(event) {
+          if ( event.which === 13 ) {
+            event.preventDefault();
+            if ( bordered ) {
+              $('div, p, img, h1, h2, h3').removeClass('bordered');
+            } else {
+              $('div, p, img, h1, h2, h3').addClass('bordered');
+            }
+            bordered = !bordered;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

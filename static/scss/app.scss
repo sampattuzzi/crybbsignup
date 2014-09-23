@@ -1,0 +1,185 @@
+@import "settings";
+@import "foundation";
+
+@mixin vertical-center() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin full-grey() {
+  background-color: grey;
+  color: #FFFFFF;
+}
+
+
+//For debug only:
+.bordered {
+  border-style: dashed;
+  border-color: red;
+  border-width: 1px;
+}
+//End debug
+
+p {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+
+//////////////////////////////////////////////////
+//Header style
+//////////////////////////////////////////////////
+.header {
+  @include full-grey();
+  padding: 10px;
+}
+
+.message-container {
+  height: 25em;
+  position: relative;
+}
+
+.message {
+  @include vertical-center();
+}
+
+.buttons {
+  @include grid-row();
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.button-container {
+  @media #{$medium-up} {
+    @include grid-column(6);
+  }
+  @media #{$small-only} {
+    @include grid-column(12);
+  }
+}
+
+.button {
+  min-width: 200px;
+  max-width: 700px;
+  margin-bottom: 0;
+  border-color: #FFFFFF;
+  border-style: solid;
+  border-width: 2px;
+}
+
+.button.primary {
+  background-color: #FFFFFF;
+  color: black;
+}
+
+.button.primary:hover,
+.button.primary:focus {
+  @extend .button.primary;
+  background-color: #b9b9b9;
+}
+
+.button.secondary {
+  background-color: transparent;
+  color: white;
+}
+
+.button.secondary:hover,
+.button.secondary:focus {
+  @extend .button.secondary;
+}
+
+h1 {
+  font-size: 36px;
+  color: #FFFFFF;
+}
+
+//////////////////////////////////////////////////
+// Body
+//////////////////////////////////////////////////
+.spaced-row {
+  @include grid-row();
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 0;
+}
+
+h2, h3 {
+  font-size: 36px;
+  font-style: normal;
+  color: #333333;
+  text-align: center;
+}
+
+.round-img.top {
+  margin-bottom: 20px;
+}
+
+img {
+  margin: auto;
+  width: 200px;
+  display: block;
+}
+
+.side-image {
+  @include grid-column($columns:12, $float:none);
+  @media #{$medium-up} {
+    @include grid-column($columns:4, $float:none);
+  }
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.center-text {
+  @include grid-column($columns:12, $float:none);
+  @media #{$medium-up} {
+    @include grid-column($columns:8, $float:none);
+  }
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.side-image.swap {
+  @media #{$medium-up} {
+    @include grid-column($columns:4, $push:8, $float:none);
+  }
+}
+
+.round-img.side {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.center-text.swap {
+  @media #{$medium-up} {
+    @include grid-column($columns:8, $pull:4, $float:none);
+  }
+}
+
+h3 {
+  text-align: left;
+}
+
+
+//////////////////////////////////////////////////
+//Footer style
+//////////////////////////////////////////////////
+
+.footer {
+  @include full-grey();
+  height: 200px;
+  position: relative;
+}
+
+.copyright {
+  @include grid-row();
+  @include vertical-center();
+}
+
+p.copyright {
+  font-size: 14px;
+}

@@ -1,24 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <!-- [START head_html] -->
-  <head>
-    <link type="text/css" rel="stylesheet" href="static/main.css" />
-  </head>
-  <!-- [END head_html] -->
-  
-  <body>
-  <h1> crybb | progress </h1>
-  <br>
-  you signed up as {{user.email}}!
-  <br>  
-  share your unique link to move up the beta queue:
-  <br>
-  http://crybbviral.appspot.com/referral/{{user.key.id()}}
-  <br><br>
-  Link stats:<br>
-  clicks: {{user.clicks}} <br>
-  signups: {{user.signups}}
-  
-  </body>
-  
-</html>
+{% extends "base.html" %}
+
+{% block body %}
+<h1> crybb | progress </h1>
+<br>
+{% for flash in flashes %}
+<p> {{ flash }} </p>
+{% endfor %}
+{% if user %}
+Hello {{ user.name }}!
+<br>  
+share your unique link to move up the beta queue:
+<br>
+{{ referral_link }}
+<br><br>
+Link stats:<br>
+clicks: {{user.clicks}} <br>
+signups: {{user.signups}}
+{% endif %}
+{% endblock %}

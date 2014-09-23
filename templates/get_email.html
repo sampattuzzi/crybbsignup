@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}    
+<h1> One more thing... </h1>
+    <br><br>
+    {% for flash in flashes %}
+    <p> {{ flash }} </p>
+    {% endfor %}
+    <form method="post" action="{{ action_url }}" id="emailSubmit"> 
+    Please provide us with your email to receive further updates. <br>
+<input type="text" name="email" value={{refereeID}}>
+<input type="submit" value="Keep me in the loop"> 
+    </form>
+<div id="status">
+</div>
+{% endblock %}
