@@ -79,12 +79,13 @@ class BaseHandler(webapp2.RequestHandler):
 
         return user
 
-    def createUser (self, user, user_location, user_refereeID):
+    def createUser (self, user, email_verified, user_location, user_refereeID):
         
         newUser = User(
                 id=str(user.id),
                 name=(user.first_name + " " + user.last_name), #todo: should be seperate fields
                 email=user.email,
+                email_verified=email_verified,
                 profile_url=user.profile_url,
                 location=user_location,
                 refereeID=user_refereeID,
@@ -219,7 +220,8 @@ class StageTwo(BaseHandler):
                 user.location = location
                 user.put()
             else:
-                user = self.createUser(fb_user, location, refereeID) #Get these in another step of sign-up
+                email_verified = (fb_user.email != None) #emails from FB are automatically verified.
+                user = self.createUser(fb_user, email_verified, location, refereeID) #Get these in another step of sign-up
             
             self.session['user'] = str(user.key.id())
 
@@ -236,6 +238,7 @@ class GetEmail(BaseHandler):
     def post(self):
         user = self.user
         user.email = self.request.get('email')
+        user.email_verified = False
         self.welcomeEmail(user.email, str(user.key.id()))
         user.put()
         self.redirect_to('progress')
