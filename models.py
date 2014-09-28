@@ -2,6 +2,7 @@ from google.appengine.ext import ndb
 
 class User(ndb.Model):
     email = ndb.StringProperty(required=False)
+    email_verified = ndb.BooleanProperty(default=False)
     location = ndb.StringProperty()
     refereeID = ndb.StringProperty()
     clicks = ndb.IntegerProperty()
