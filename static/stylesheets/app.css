@@ -21195,10 +21195,14 @@ p {
   position: relative;
   padding: 10px;
   overflow: hidden;
-  background-color: black;
 }
 
 /* line 45, ../scss/app.scss */
+.logo {
+  padding-top: 40px;
+}
+
+/* line 49, ../scss/app.scss */
 video#bgvid {
   position: absolute;
   left: 0;
@@ -21207,16 +21211,17 @@ video#bgvid {
   min-height: 100%;
   width: auto;
   height: auto;
-  opacity: 0.5;
+  opacity: 1;
+  z-index: -100;
 }
 
-/* line 52, ../scss/app.scss */
+/* line 57, ../scss/app.scss */
 .message-container {
   height: 25em;
   position: relative;
 }
 
-/* line 57, ../scss/app.scss */
+/* line 62, ../scss/app.scss */
 .message {
   position: absolute;
   top: 50%;
@@ -21225,7 +21230,7 @@ video#bgvid {
   transform: translate(-50%, -50%);
 }
 
-/* line 61, ../scss/app.scss */
+/* line 66, ../scss/app.scss */
 .buttons {
   width: 100%;
   margin-left: auto;
@@ -21249,7 +21254,7 @@ video#bgvid {
 }
 
 @media only screen and (min-width: 40.063em) {
-  /* line 69, ../scss/app.scss */
+  /* line 74, ../scss/app.scss */
   .button-container {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -21258,7 +21263,7 @@ video#bgvid {
   }
 }
 @media only screen and (max-width: 40em) {
-  /* line 69, ../scss/app.scss */
+  /* line 74, ../scss/app.scss */
   .button-container {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -21267,7 +21272,7 @@ video#bgvid {
   }
 }
 
-/* line 78, ../scss/app.scss */
+/* line 83, ../scss/app.scss */
 .button {
   min-width: 200px;
   max-width: 700px;
@@ -21278,7 +21283,7 @@ video#bgvid {
   border-radius: 2px;
 }
 
-/* line 88, ../scss/app.scss */
+/* line 93, ../scss/app.scss */
 .button.primary, .button.primary:hover,
 .button.primary:focus {
   background-color: #95c221;
@@ -21286,53 +21291,53 @@ video#bgvid {
   border-color: #95c221;
 }
 
-/* line 94, ../scss/app.scss */
+/* line 99, ../scss/app.scss */
 .button.primary:hover,
 .button.primary:focus {
   background-color: #b9b9b9;
   border-color: #b9b9b9;
 }
 
-/* line 101, ../scss/app.scss */
+/* line 106, ../scss/app.scss */
 .button.secondary, .button.secondary:hover,
 .button.secondary:focus {
   background-color: transparent;
   color: white;
 }
 
-/* line 111, ../scss/app.scss */
+/* line 116, ../scss/app.scss */
 h1 {
   font-size: 36px;
   color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 117, ../scss/app.scss */
+/* line 122, ../scss/app.scss */
 .subtext {
   font-size: 16px;
   color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 123, ../scss/app.scss */
+/* line 128, ../scss/app.scss */
 .facebook {
   font-weight: bold;
   color: #4c66a4;
 }
 
-/* line 128, ../scss/app.scss */
+/* line 133, ../scss/app.scss */
 a {
   color: #FFFFFF;
   text-decoration: underline;
 }
 
-/* line 133, ../scss/app.scss */
+/* line 138, ../scss/app.scss */
 a:hover {
   text-decoration: none;
   color: #FFFFFF;
 }
 
-/* line 141, ../scss/app.scss */
+/* line 146, ../scss/app.scss */
 .spaced-row {
   width: 100%;
   margin-left: auto;
@@ -21354,7 +21359,7 @@ a:hover {
   clear: both;
 }
 
-/* line 148, ../scss/app.scss */
+/* line 153, ../scss/app.scss */
 h2, h3 {
   font-size: 24px;
   font-style: normal;
@@ -21363,19 +21368,19 @@ h2, h3 {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 156, ../scss/app.scss */
+/* line 161, ../scss/app.scss */
 .round-img.top {
   margin-bottom: 20px;
 }
 
-/* line 160, ../scss/app.scss */
+/* line 165, ../scss/app.scss */
 .center-img {
   margin: auto;
   width: 200px;
   display: block;
 }
 
-/* line 166, ../scss/app.scss */
+/* line 171, ../scss/app.scss */
 .side-image {
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
@@ -21385,7 +21390,7 @@ h2, h3 {
   vertical-align: middle;
 }
 @media only screen and (min-width: 40.063em) {
-  /* line 166, ../scss/app.scss */
+  /* line 171, ../scss/app.scss */
   .side-image {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -21394,7 +21399,7 @@ h2, h3 {
   }
 }
 
-/* line 175, ../scss/app.scss */
+/* line 180, ../scss/app.scss */
 .center-text {
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
@@ -21404,7 +21409,7 @@ h2, h3 {
   vertical-align: middle;
 }
 @media only screen and (min-width: 40.063em) {
-  /* line 175, ../scss/app.scss */
+  /* line 180, ../scss/app.scss */
   .center-text {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -21414,7 +21419,7 @@ h2, h3 {
 }
 
 @media only screen and (min-width: 40.063em) {
-  /* line 184, ../scss/app.scss */
+  /* line 189, ../scss/app.scss */
   .side-image.swap {
     position: relative;
     padding-left: 0.9375rem;
@@ -21426,14 +21431,14 @@ h2, h3 {
   }
 }
 
-/* line 190, ../scss/app.scss */
+/* line 195, ../scss/app.scss */
 .round-img.side {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
 @media only screen and (min-width: 40.063em) {
-  /* line 195, ../scss/app.scss */
+  /* line 200, ../scss/app.scss */
   .center-text.swap {
     position: relative;
     padding-left: 0.9375rem;
@@ -21445,12 +21450,12 @@ h2, h3 {
   }
 }
 
-/* line 201, ../scss/app.scss */
+/* line 206, ../scss/app.scss */
 h3 {
   text-align: left;
 }
 
-/* line 210, ../scss/app.scss */
+/* line 215, ../scss/app.scss */
 .footer {
   background-color: #95c221;
   position: relative;
@@ -21458,19 +21463,19 @@ h3 {
   text-align: center;
 }
 
-/* line 217, ../scss/app.scss */
+/* line 222, ../scss/app.scss */
 p.follow {
   display: inline-block;
   margin-top: 30px;
   font-weight: bold;
 }
 
-/* line 223, ../scss/app.scss */
+/* line 228, ../scss/app.scss */
 .social-container {
   display: inline-block;
 }
 
-/* line 227, ../scss/app.scss */
+/* line 232, ../scss/app.scss */
 .social-img {
   margin-top: 25px;
   margin-bottom: 60px;
@@ -21479,12 +21484,12 @@ p.follow {
   width: 40px;
 }
 
-/* line 237, ../scss/app.scss */
+/* line 242, ../scss/app.scss */
 .copyright {
   margin-bottom: 20px;
 }
 
-/* line 241, ../scss/app.scss */
+/* line 246, ../scss/app.scss */
 p.copyright {
   font-size: 14px;
 }

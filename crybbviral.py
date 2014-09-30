@@ -12,10 +12,6 @@ import webapp2
 from webapp2_extras import sessions
 
 #Third party libraries
-import sys
-lib_dir = "libs"
-sys.path += [os.path.join(lib_dir, name) for name in os.listdir(lib_dir)
-            if os.path.isdir(os.path.join(lib_dir, name))] #Add subdirectories of 'libs' to path
 import facebook
 from models import User, get_facebook_id, get_facebook_secret, clickCount, signupCount
 

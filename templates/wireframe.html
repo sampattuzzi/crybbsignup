@@ -10,12 +10,12 @@
   <body>
 
     <div class="header">
-      <video autoplay loop poster="/static/img/placeholder1.png" id="bgvid">
+      <video autoplay poster="/static/img/placeholder1.png" id="bgvid">
 	<source src="http://ak8.picdn.net/shutterstock/videos/4500683/preview/stock-footage-young-people-in-the-kitchen-prepare-for-a-party-friends-cooking-and-preparing-food-together.webm" type="video/webm">
       </video>
       <div class="header-inner">
-        <div class="logo">
-           <img src="/static/img/logo.jpg" alt="Crybb" style="width:104px">
+        <div class="logo center-img">
+           <img src="/static/img/logo_white.png" alt="Crybb" style="width:200px">
         </div>
         <div class="message-container">
           <div class="message">
@@ -131,5 +131,24 @@
         });
       });
     </script>
+      
+    <script>      
+      videoPlayer =  document.getElementById('bgvid');
+      videoPlayer.addEventListener('ended', next, false);
+      var videoSource = new Array();
+      videoSource[1]="/static/vid/placeholder2.webm";
+      videoSource[0]="http://ak8.picdn.net/shutterstock/videos/4500683/preview/stock-footage-young-people-in-the-kitchen-prepare-for-a-party-friends-cooking-and-preparing-food-together.webm";
+      var i = 0;
+      function next() {
+        i++;
+        if (i == 2) {
+          i = 0;
+        };
+        videoPlayer.src = videoSource[i];
+        videoPlayer.play();
+      }
+    </script>
+    
+
   </body>
 </html>
