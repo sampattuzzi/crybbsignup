@@ -17,16 +17,16 @@
            Find flatmates through friends in London 
           </h1>
           <div class="buttons">
-            <div class="button-container">
-              <div class="primary button">
-                Sign Up 
+            <form method="get" action="{{ redirect_url }}" id="emailSubmit"> 
+              <input type="hidden" name="location" value="London">
+              <input type="hidden" name="refereeID" value={{refereeID}}>
+              <div class="button-container">
+                <input type="submit" class="primary button radius" value="Sign up">
               </div>
-            </div>
-            <div class="button-container">
-              <div class="secondary button">
-                Log In
+              <div class="button-container">
+                <input type="submit" class="secondary button radius" value="Log in">
               </div>
-            </div>
+            </form>
           </div>
           <p class="subtext">
           Not in <b>London</b>? <a href="http://www.yahoo.com">Request your city</a>
