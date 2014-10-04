@@ -139,7 +139,8 @@ class Landing(BaseHandler):
     def prepare_page(self, refereeID):
         self.render('landing.html', 
                 refereeID = refereeID,
-                redirect_url = webapp2.uri_for('stageone'))     
+                redirect_url = webapp2.uri_for('stageone'),
+                user = self.user)
 
     def get(self): 
         self.prepare_page('NULL')
@@ -151,18 +152,6 @@ class Referral(Landing):
         
         self.prepare_page(refereeID)
 
-
-class Progress(BaseHandler):
-    def get(self):
-        referral_link = None
-        if not self.user:
-            self.session.add_flash("You are not logged in.")
-        else:
-            referral_link = application.router.build(self.request, 'referral', (), {'refereeID': self.user.key.id(),'_full': True})
-
-        self.render('progress.html', 
-                user=self.user, 
-                referral_link=referral_link)
 
 #Login stages
 
@@ -220,7 +209,7 @@ class StageTwo(BaseHandler):
             self.redirect_to('get_email')
             return
 
-        self.redirect_to('progress')
+        self.redirect(webapp2.uri_for('landing') + '#progress')
 
 class GetEmail(BaseHandler):
     def get(self):
@@ -232,7 +221,7 @@ class GetEmail(BaseHandler):
         user.email_verified = False
         self.welcomeEmail(user.email, str(user.key.id()))
         user.put()
-        self.redirect_to('progress')
+        self.redirect(webapp2.uri_for('landing') + '#progress')
 
 
 config = {}
@@ -242,7 +231,6 @@ config['webapp2_extras.sessions'] = {
     
 application = webapp2.WSGIApplication([
      webapp2.Route('/', handler=Landing, name="landing"),
-     webapp2.Route('/progress', handler=Progress, name="progress"),
      webapp2.Route('/stageone', handler=StageOne, name="stageone"),
      webapp2.Route('/stagetwo', handler=StageTwo, name="stagetwo"),
      webapp2.Route('/get_email', handler=GetEmail, name="get_email"),

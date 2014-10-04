@@ -6,15 +6,4 @@
 {% for flash in flashes %}
 <p> {{ flash }} </p>
 {% endfor %}
-{% if user %}
-Hello {{ user.name }}!
-<br>  
-share your unique link to move up the beta queue:
-<br>
-{{ referral_link }}
-<br><br>
-Link stats:<br>
-clicks: {{user.clicks}} <br>
-signups: {{user.signups}}
-{% endif %}
 {% endblock %}

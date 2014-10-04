@@ -65,10 +65,23 @@
   </div>
 
   <div class="spaced-row">
+    <a name="progress"></a>
     <div class="large-12 columns">
+      {% if user %}
+      <h2>Hello {{ user.name }}!</h2>
+      <p>
+      share your unique link to move up the beta queue:
+      {{ referral_link }}
+      <br><br>
+      Link stats:<br>
+      clicks: {{user.clicks}} <br>
+      signups: {{user.signups}}
+      </p>
+      {% else %}
       <h2>Get earlier access to the beta by inviting yout friends
     into the community. The more friends you invite
   the sooner you'll get access.</h2>
+      {% endif %}
     </div>
   </div>
   
