@@ -164,11 +164,6 @@ class Progress(BaseHandler):
                 user=self.user, 
                 referral_link=referral_link)
 
-class WireFrame(BaseHandler):
-    def get(self):
-        
-        self.render('wireframe.html')      
-        
 #Login stages
 
 class StageOne(BaseHandler):
@@ -252,7 +247,6 @@ application = webapp2.WSGIApplication([
      webapp2.Route('/stagetwo', handler=StageTwo, name="stagetwo"),
      webapp2.Route('/get_email', handler=GetEmail, name="get_email"),
      webapp2.Route('/referral/<refereeID>', handler=Referral, name="referral"),
-     webapp2.Route('/wireframe', handler=WireFrame),
      ], 
      debug=True,
      config=config
