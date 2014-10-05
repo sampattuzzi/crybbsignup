@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block body %}
   <div class="header">
     <video class="background" autoplay poster="/static/img/placeholder1.png" id="bgvid">
@@ -18,19 +17,38 @@
           </h1>
           <div class="buttons">
             <div class="button-container">
-              <div class="primary button">
+              <div class="primary button login">
                 Sign Up 
               </div>
             </div>
             <div class="button-container">
-              <div class="secondary button">
+              <div class="secondary button login">
                 Log In
               </div>
             </div>
           </div>
           <p class="subtext">
-          Not in <b>London</b>? <a href="http://www.yahoo.com">Request your city</a>
+          Not in <b>London</b>? <a href="#" data-reveal-id="myModal">Request your city</a>
           </p>
+          <div id="myModal" class="reveal-modal" data-reveal>
+            <form>
+                 <div class="row">
+                    <div class="small-10 columns">
+                      <select>
+                        <option value="husker">New York</option>
+                        <option value="starbuck">San Francisco</option>
+                        <option value="hotdog">Munich</option>
+                        <option value="apollo">Madrid</option>
+                      </select>
+                    </div>
+                  <div class="small-2 columns">
+                    <a href="#" class="button postfix submit">Submit</a>
+                  </div>
+                 </div>
+            </form>
+ 
+            <a class="close-reveal-modal">&#215;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -105,8 +123,6 @@
     </div>
   </div>
 
-
-  <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="/static/bower_components/foundation/js/foundation.min.js"></script>
   <script src="/static/js/app.js"></script>
   <script>
@@ -142,4 +158,5 @@
       videoPlayer.play();
     }
   </script>
-{% endblock %}
+
+ {% endblock %}

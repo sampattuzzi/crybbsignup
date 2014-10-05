@@ -83,7 +83,7 @@ p {
   }
 }
 
-.button {
+.button.login {
   min-width: 200px;
   max-width: 700px;
   margin-bottom: 0;
@@ -93,27 +93,33 @@ p {
   border-radius: 2px;
 }
 
-.button.primary {
+.button.primary.login {
   background-color: #95c221;
   color: white;
   border-color: #95c221;
 }
 
-.button.primary:hover,
-.button.primary:focus {
-  @extend .button.primary;
+.button.primary.login:hover,
+.button.primary.login:focus {
+  @extend .button.primary.login;
   background-color: #b9b9b9;
   border-color: #b9b9b9;
 }
 
-.button.secondary {
+.button.secondary.login {
   background-color: transparent;
   color: white;
 }
 
-.button.secondary:hover,
-.button.secondary:focus {
-  @extend .button.secondary;
+.button.secondary.login:hover,
+.button.secondary.login:focus {
+  @extend .button.secondary.login;
+}
+
+.button.postfix.submit {
+  background-color: #95c221;
+  color: white;
+  border-color: #95c221;
 }
 
 h1 {

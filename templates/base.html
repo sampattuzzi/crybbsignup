@@ -5,8 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crybb</title>
     {% block head %}
-      <link rel="stylesheet" href="/static/stylesheets/app.css" />
-      <script src="/static/bower_components/modernizr/modernizr.js"></script>
+    <script src="/static/bower_components/modernizr/modernizr.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="/static/stylesheets/app.css" />
+
+    
+      <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+      <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+       <script>
+  $(function() {
+    var availableTags = [
+    "Munich",
+    "New York",
+    "Berlin"
+    ];
+    $( "#cities" ).autocomplete({
+      source: availableTags
+    });
+  });
+       </script> -->
+
     {% endblock %}
   </head>
   <body>
