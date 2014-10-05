@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block body %}
   <div class="header">
     <video class="background" autoplay poster="/static/img/placeholder1.png" id="bgvid">
@@ -21,16 +20,117 @@
               <input type="hidden" name="location" value="London">
               <input type="hidden" name="refereeID" value={{refereeID}}>
               <div class="button-container">
-                <input type="submit" class="primary button radius" value="Sign up">
+                <input type="submit" class="primary button radius login" value="Sign up">
               </div>
               <div class="button-container">
-                <input type="submit" class="secondary button radius" value="Log in">
+                <input type="submit" class="secondary button radius login" value="Log in">
               </div>
             </form>
           </div>
           <p class="subtext">
-          Not in <b>London</b>? <a href="http://www.yahoo.com">Request your city</a>
+            Not in <b>London</b>? <a href="#" data-reveal-id="myModal">Request your city</a>
           </p>
+          <div id="myModal" class="reveal-modal" data-reveal>
+            <form>
+              <div class="row">
+                <div class="small-12 columns">
+                  <label>Start typing to select your city...</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="small-10 columns">
+                  <input type="text" placeholder="New York" list="cities">
+                </div>
+                <datalist id="cities">
+                  <option value="Amsterdam">
+                  <option value="Ankara">
+                  <option value="Athens">
+                  <option value="Atlantic City">
+                  <option value="Baltimore">
+                  <option value="Bangkok">
+                  <option value="Beijing">
+                  <option value="Berlin">
+                  <option value="Berne">
+                  <option value="Brussels">
+                  <option value="Budapest">
+                  <option value="Buenos Aires">
+                  <option value="Cairo">
+                  <option value="Canberra">
+                  <option value="Cannes">
+                  <option value="Cape Town">
+                  <option value="Chicago">
+                  <option value="Cologne">
+                  <option value="Copenhagen">
+                  <option value="Damascus">
+                  <option value="Delhi">
+                  <option value="Dubai City">
+                  <option value="Dublin">
+                  <option value="Florence">
+                  <option value="Genève">
+                  <option value="Ha Noi">
+                  <option value="Hague">
+                  <option value="Havana">
+                  <option value="Helsinki">
+                  <option value="Hong Kong">
+                  <option value="Honolulu">
+                  <option value="Istanbul">
+                  <option value="Jakarta">
+                  <option value="Jerusalem">
+                  <option value="Kansas City">
+                  <option value="Kathmandu">
+                  <option value="Kuala Lumpur">
+                  <option value="Lisbon">
+                  <option value="London">
+                  <option value="Los Angeles">
+                  <option value="Luxembourg">
+                  <option value="Madrid">
+                  <option value="Manila">
+                  <option value="Melbourne">
+                  <option value="Mexico City">
+                  <option value="Milan">
+                  <option value="Montreal">
+                  <option value="Moscow">
+                  <option value="Mumbai">
+                  <option value="Munich">
+                  <option value="Nazareth">
+                  <option value="New York">
+                  <option value="Nice">
+                  <option value="Osaka">
+                  <option value="Oslo">
+                  <option value="Ottawa">
+                  <option value="Paris">
+                  <option value="Philadelphia">
+                  <option value="Phnom Penh">
+                  <option value="Prague">
+                  <option value="Quito">
+                  <option value="Reykjavík">
+                  <option value="Rio de Janeiro">
+                  <option value="Saint-Petersburg">
+                  <option value="San Francisco">
+                  <option value="Santa Fe">
+                  <option value="Santiago">
+                  <option value="São Paulo">
+                  <option value="Shanghai">
+                  <option value="Singapore City">
+                  <option value="Stockholm">
+                  <option value="Sydney">
+                  <option value="Taipei">
+                  <option value="Tokyo">
+                  <option value="Toronto">
+                  <option value="Venice">
+                  <option value="Vienna">
+                  <option value="Washington">
+                  <option value="Zürich">
+                </datalist>
+
+                <div class="small-2 columns">
+                  <a href="#" class="button postfix submit">Submit</a>
+                </div>
+              </div>
+            </form>
+ 
+            <a class="close-reveal-modal">&#215;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -118,8 +218,6 @@
     </div>
   </div>
 
-
-  <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="/static/bower_components/foundation/js/foundation.min.js"></script>
   <script src="/static/js/app.js"></script>
   <script>
@@ -155,4 +253,5 @@
       videoPlayer.play();
     }
   </script>
+
 {% endblock %}
