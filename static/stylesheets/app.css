@@ -3239,8 +3239,7 @@ button:hover, button:focus, .button:hover, .button:focus {
   color: #FFFFFF;
 }
 /* line 224, ../bower_components/foundation/scss/foundation/components/_buttons.scss */
-button.secondary, .button.secondary, .button.secondary:hover,
-.button.secondary:focus {
+button.secondary, .button.secondary {
   background-color: #e7e7e7;
   border-color: #b9b9b9;
   color: #333333;
@@ -4272,8 +4271,7 @@ button:hover, button:focus, .button:hover, .button:focus {
   color: #FFFFFF;
 }
 /* line 224, ../bower_components/foundation/scss/foundation/components/_buttons.scss */
-button.secondary, .button.secondary, .button.secondary:hover,
-.button.secondary:focus {
+button.secondary, .button.secondary {
   background-color: #e7e7e7;
   border-color: #b9b9b9;
   color: #333333;
@@ -6095,8 +6093,7 @@ button:hover, button:focus, .button:hover, .button:focus {
   color: #FFFFFF;
 }
 /* line 224, ../bower_components/foundation/scss/foundation/components/_buttons.scss */
-button.secondary, .button.secondary, .button.secondary:hover,
-.button.secondary:focus {
+button.secondary, .button.secondary {
   background-color: #e7e7e7;
   border-color: #b9b9b9;
   color: #333333;
@@ -10794,8 +10791,7 @@ button:hover, button:focus, .button:hover, .button:focus {
   color: #FFFFFF;
 }
 /* line 224, ../bower_components/foundation/scss/foundation/components/_buttons.scss */
-button.secondary, .button.secondary, .button.secondary:hover,
-.button.secondary:focus {
+button.secondary, .button.secondary {
   background-color: #e7e7e7;
   border-color: #b9b9b9;
   color: #333333;
@@ -17161,8 +17157,7 @@ button:hover, button:focus, .button:hover, .button:focus {
   color: #FFFFFF;
 }
 /* line 224, ../bower_components/foundation/scss/foundation/components/_buttons.scss */
-button.secondary, .button.secondary, .button.secondary:hover,
-.button.secondary:focus {
+button.secondary, .button.secondary {
   background-color: #e7e7e7;
   border-color: #b9b9b9;
   color: #333333;
@@ -21278,7 +21273,7 @@ p {
 }
 
 /* line 86, ../scss/app.scss */
-.button {
+.button.login {
   min-width: 200px;
   max-width: 700px;
   margin-bottom: 0;
@@ -21289,60 +21284,67 @@ p {
 }
 
 /* line 96, ../scss/app.scss */
-.button.primary, .button.primary:hover,
-.button.primary:focus {
+.button.primary.login, .button.primary.login:hover,
+.button.primary.login:focus {
   background-color: #95c221;
   color: white;
   border-color: #95c221;
 }
 
 /* line 102, ../scss/app.scss */
-.button.primary:hover,
-.button.primary:focus {
+.button.primary.login:hover,
+.button.primary.login:focus {
   background-color: #b9b9b9;
   border-color: #b9b9b9;
 }
 
 /* line 109, ../scss/app.scss */
-.button.secondary, .button.secondary:hover,
-.button.secondary:focus {
+.button.secondary.login, .button.secondary.login:hover,
+.button.secondary.login:focus {
   background-color: transparent;
   color: white;
 }
 
 /* line 119, ../scss/app.scss */
+.button.postfix.submit {
+  background-color: #95c221;
+  color: white;
+  border-color: #95c221;
+}
+
+/* line 125, ../scss/app.scss */
 h1 {
   font-size: 36px;
   color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 125, ../scss/app.scss */
+/* line 131, ../scss/app.scss */
 .subtext {
   font-size: 16px;
   color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 131, ../scss/app.scss */
+/* line 137, ../scss/app.scss */
 .facebook {
   font-weight: bold;
   color: #4c66a4;
 }
 
-/* line 136, ../scss/app.scss */
+/* line 142, ../scss/app.scss */
 a {
   color: #FFFFFF;
   text-decoration: underline;
 }
 
-/* line 141, ../scss/app.scss */
+/* line 147, ../scss/app.scss */
 a:hover {
   text-decoration: none;
   color: #FFFFFF;
 }
 
-/* line 149, ../scss/app.scss */
+/* line 155, ../scss/app.scss */
 .spaced-row {
   width: 100%;
   margin-left: auto;
@@ -21364,7 +21366,7 @@ a:hover {
   clear: both;
 }
 
-/* line 156, ../scss/app.scss */
+/* line 162, ../scss/app.scss */
 h2, h3 {
   font-size: 24px;
   font-style: normal;
@@ -21373,19 +21375,19 @@ h2, h3 {
   font-family: 'Open Sans', sans-serif;
 }
 
-/* line 164, ../scss/app.scss */
+/* line 170, ../scss/app.scss */
 .round-img.top {
   margin-bottom: 20px;
 }
 
-/* line 168, ../scss/app.scss */
+/* line 174, ../scss/app.scss */
 .center-img {
   margin: auto;
   width: 200px;
   display: block;
 }
 
-/* line 174, ../scss/app.scss */
+/* line 180, ../scss/app.scss */
 .side-image {
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
@@ -21395,7 +21397,7 @@ h2, h3 {
   vertical-align: middle;
 }
 @media only screen and (min-width: 40.063em) {
-  /* line 174, ../scss/app.scss */
+  /* line 180, ../scss/app.scss */
   .side-image {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -21404,7 +21406,7 @@ h2, h3 {
   }
 }
 
-/* line 183, ../scss/app.scss */
+/* line 189, ../scss/app.scss */
 .center-text {
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
@@ -21414,7 +21416,7 @@ h2, h3 {
   vertical-align: middle;
 }
 @media only screen and (min-width: 40.063em) {
-  /* line 183, ../scss/app.scss */
+  /* line 189, ../scss/app.scss */
   .center-text {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -21424,7 +21426,7 @@ h2, h3 {
 }
 
 @media only screen and (min-width: 40.063em) {
-  /* line 192, ../scss/app.scss */
+  /* line 198, ../scss/app.scss */
   .side-image.swap {
     position: relative;
     padding-left: 0.9375rem;
@@ -21436,14 +21438,14 @@ h2, h3 {
   }
 }
 
-/* line 198, ../scss/app.scss */
+/* line 204, ../scss/app.scss */
 .round-img.side {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
 @media only screen and (min-width: 40.063em) {
-  /* line 203, ../scss/app.scss */
+  /* line 209, ../scss/app.scss */
   .center-text.swap {
     position: relative;
     padding-left: 0.9375rem;
@@ -21455,12 +21457,12 @@ h2, h3 {
   }
 }
 
-/* line 209, ../scss/app.scss */
+/* line 215, ../scss/app.scss */
 h3 {
   text-align: left;
 }
 
-/* line 218, ../scss/app.scss */
+/* line 224, ../scss/app.scss */
 .footer {
   background-color: #95c221;
   position: relative;
@@ -21468,19 +21470,19 @@ h3 {
   text-align: center;
 }
 
-/* line 225, ../scss/app.scss */
+/* line 231, ../scss/app.scss */
 p.follow {
   display: inline-block;
   margin-top: 30px;
   font-weight: bold;
 }
 
-/* line 231, ../scss/app.scss */
+/* line 237, ../scss/app.scss */
 .social-container {
   display: inline-block;
 }
 
-/* line 235, ../scss/app.scss */
+/* line 241, ../scss/app.scss */
 .social-img {
   margin-top: 25px;
   margin-bottom: 60px;
@@ -21489,12 +21491,12 @@ p.follow {
   width: 40px;
 }
 
-/* line 245, ../scss/app.scss */
+/* line 251, ../scss/app.scss */
 .copyright {
   margin-bottom: 20px;
 }
 
-/* line 249, ../scss/app.scss */
+/* line 255, ../scss/app.scss */
 p.copyright {
   font-size: 14px;
 }
